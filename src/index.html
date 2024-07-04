@@ -7,24 +7,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
-    /* Añade tus estilos CSS aquí */
     .chat-box {
       visibility: hidden;
-      /* otros estilos */
     }
     .modal {
       display: none;
-      /* otros estilos */
     }
     .show-modal {
       display: block;
     }
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 1000;
+      display: none;
+    }
+    .splash-screen.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
+  <div class="splash-screen" id="splashScreen"> <img src="funcy_splash.png" alt="logo_funcy"> </div>
   <div class="chat-box">
     <div class="chat-box-header">
         <h3>Funcy ia assistant</h3>
@@ -57,7 +69,7 @@
     <div class="chat-box-footer">
         <button id="addExtra">  <i class="fas fa-paperclip"></i></button>
         <input placeholder="Enter Your Message" type="text" />
-        <button id="addExtra">
+        <button id="addExtra2">
           <i class="fas fa-camera"></i>
         </button>
     </div>
@@ -75,8 +87,12 @@
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       $('.chat-button').on('click', function() {
-        $('.chat-button').hide();
-        $('.chat-box').css('visibility', 'visible');
+        $('#splashScreen').addClass('active');
+        setTimeout(function() {
+          $('#splashScreen').removeClass('active');
+          $('.chat-button').hide();
+          $('.chat-box').css('visibility', 'visible');
+        }, 2100); 
       });
 
       $('.chat-box .chat-box-header p').on('click', function() {
@@ -85,6 +101,9 @@
       });
 
       $('#addExtra').on('click', function() {
+        $('.modal').toggleClass('show-modal');
+      });
+      $('#addExtra2').on('click', function() {
         $('.modal').toggleClass('show-modal');
       });
 
